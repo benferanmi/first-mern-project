@@ -17,12 +17,13 @@ const PlacesFormPage = () => {
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState(false);
+  const [price, setPrice] = useState('');
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get("/places/"+id).then((response) => {
+    axios.get("/places/" + id).then((response) => {
       const { data } = response;
       setTitle(data.title);
       setAddress(data.address);
@@ -33,6 +34,7 @@ const PlacesFormPage = () => {
       setCheckIn(data.checkIn);
       setCheckOut(data.checkOut);
       setMaxGuests(data.maxGuests);
+      setPrice(data.price);
     });
   }, [id]);
   function inputHeader(text) {
@@ -54,7 +56,8 @@ const PlacesFormPage = () => {
 
   async function savePlace(e) {
     e.preventDefault();
-    const placeData = {title,
+    const placeData = {
+      title,
       address,
       addedPhotos,
       description,
@@ -62,19 +65,21 @@ const PlacesFormPage = () => {
       extraInfo,
       checkIn,
       checkOut,
-      maxGuests,}
+      maxGuests,
+      price,
+    };
     if (id) {
       //updating existing place
       await axios.put("/places", {
-        id, ...placeData
+        id,
+        ...placeData,
       });
       setRedirect(true);
     } else {
-      //adding new place 
+      //adding new place
       await axios.post("/places", placeData);
       setRedirect(true);
     }
-   
   }
 
   if (redirect) {
@@ -124,7 +129,7 @@ const PlacesFormPage = () => {
           "Check In And Out Times.",
           "Add check in and out times, remember to have some time windows for cleaning the room between guests "
         )}
-        <div className="grid gap-2 sm:grid-cols-3">
+        <div className="grid gap-2 grid-cols-2 md:grid-cols-4">
           <div>
             <h3 className="tm-2 -mb-1">Check In Time</h3>
             <input
@@ -152,6 +157,15 @@ const PlacesFormPage = () => {
               onChange={(e) => setMaxGuests(e.target.value)}
             />
           </div>
+          <div>
+            <h3 className="tm-2 -mb-1">Price per Night</h3>
+            <input
+              type="number"
+              placeholder="100"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
         </div>
 
         <div>
@@ -160,9 +174,8 @@ const PlacesFormPage = () => {
       </form>
     </>
   );
-};    
+};
 
 export default PlacesFormPage;
-
 
 //4:30h:23
