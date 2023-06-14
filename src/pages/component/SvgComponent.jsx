@@ -102,9 +102,41 @@ export const ImageSvg = () => {
 </svg>
 
 };
-export const Cssomponent2 = () => {
+export const CloseSvg = () => {
+  return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+</svg>
+
+};
+export const MapSvg = () => {
+  return <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+</svg>
+
+};
+export const Csompddonent2 = () => {
   // Component 2 logic and JSX
 };
-export const Csomponent2 = () => {
+
+export const Csompdddonent2 = () => {
+  // Component 2 logic and JSX
+};
+export const Csompaonent2 = () => {
+  // Component 2 logic and JSX
+};
+export const Csompaaonent2 = () => {
+  // Component 2 logic and JSX
+};
+export const Csomponeant2 = () => {
+  // Component 2 logic and JSX
+};
+export const Csomponsdent2 = () => {
+  // Component 2 logic and JSX
+};
+export const Csoasamponent2 = () => {
+  // Component 2 logic and JSX
+};
+export const Csomdfponent2 = () => {
   // Component 2 logic and JSX
 };
