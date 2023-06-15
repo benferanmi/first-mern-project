@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import { CloseSvg, ImageSvg, MapSvg } from "./component/SvgComponent.jsx";
 import BookingWidget from "./BookingWidget.jsx";
 
-const SinglePlacePage = () => {
+const PlaceSinglePage = () => {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
   const [showAllPhotos, setShowAllPhotos] = useState(false);
@@ -128,6 +128,6 @@ const SinglePlacePage = () => {
   );
 };
 
-export default SinglePlacePage;
+export default PlaceSinglePage;
 
 //5:21

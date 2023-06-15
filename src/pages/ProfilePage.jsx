@@ -41,6 +41,12 @@ const ProfilePage = () => {
         </div>
       )}
 
+{subpage === "bookings" && (
+        <div className="text-center max-w-lg mx-auto">
+          this is booking page
+        </div>
+      )}
+
       {subpage === "places" && (
         <div>
           <PlacesPage />
