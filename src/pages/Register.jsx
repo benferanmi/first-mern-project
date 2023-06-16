@@ -66,7 +66,7 @@ const Register = () => {
             <div className="text-center py-2 text-gray-500">
               Already have an account ?{" "}
               <Link className="underline text-black " to={"/login"}>
-                Register now
+                Login now
               </Link>
             </div>
           </form>
