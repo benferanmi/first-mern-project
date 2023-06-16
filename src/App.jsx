@@ -13,7 +13,7 @@ import PlaceSinglePage from "./pages/PlaceSinglePage";
 import BookingPage from "./pages/Booking/BookingPage";
 import BookingSinglePage from "./pages/Booking/BookingSinglePage";
 
-axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://first-mern-project-bend-production.up.railway.app";
 axios.defaults.withCredentials = true;
 
 function App() {
