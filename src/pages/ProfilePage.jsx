@@ -14,10 +14,27 @@ const ProfilePage = () => {
     subpage = "profile";
   }
 
+  //getting saved user data tfrom cookies.
+  function getUserDataFromCookie() {
+    const encodedCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('userData='));
+      const json = decodeURIComponent(encodedCookie.split('=')[1]);
+    return json
+  }
+
+  const retrievedUserData = getUserDataFromCookie();
+  console.log('from cookies' + retrievedUserData);
+  console.log(JSON.parse(retrievedUserData))
+
+  function deleteUserDataCookie() {
+    document.cookie = 'userData=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  }
+  
+
   async function logout() {
     await axios.post("/logout");
-    setRedirect("/");
-    setUser(null);
+    deleteUserDataCookie()
+    setRedirect("/login");
+    setUser(null);;
   }
   if (!ready) {
     return "Loading.......";

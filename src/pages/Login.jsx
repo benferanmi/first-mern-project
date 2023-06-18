@@ -1,29 +1,43 @@
 import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
-import { UserContext} from "../UserContext";
+import { UserContext } from "../UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirect, setRedirect] = useState(false)
-  const {setUser} = useContext(UserContext);
+  const [redirect, setRedirect] = useState(false);
+  const { setUser } = useContext(UserContext);
 
+  function saveUserDataToCookie(userData) {
+    const json = JSON.stringify(userData);
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + 1); // Set expiration date to 1 day from now
+    document.cookie = `userData=${json}; expires=${expirationDate.toUTCString()}; path=/`;
+  }
+  
+  
+  
   async function userLogin(e) {
     e.preventDefault();
     try {
-    const {data} = await axios.post('/login', {email,password}, {withCredentials: true })
-    setUser(data)
-    alert('login sucessful');
-    setRedirect(true)
+      const { data } = await axios.post(
+        "/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      setUser(data);
+      saveUserDataToCookie(data);
+      alert("login sucessful");
+      setRedirect(true);
     } catch (err) {
-      alert('login failed')
+      alert("login failed");
     }
   }
 
   if (redirect) {
-    return <Navigate to={"/"} />
-  } 
+    return <Navigate to={"/"} />;
+  }
   return (
     <div className="mt-12 flex justify-items-center items-center">
       <div className="-mb-64">
