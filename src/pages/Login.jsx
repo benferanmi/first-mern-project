@@ -24,6 +24,7 @@ const Login = () => {
       const token = data.token
       const cookies = new Cookies();
       cookies.set("token", token, { path: "/" });
+      localStorage.setItem("token", data.token);
       alert("login sucessful");
       setRedirect(true);
     } catch (err) {

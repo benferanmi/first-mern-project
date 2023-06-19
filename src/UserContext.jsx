@@ -8,7 +8,7 @@ export function UserContextProvider({children}) {
     const [ready, setReady] = useState(false)
     console.log(user)
 
-    8
+    
      useEffect(() =>  {
         if(!user) {
             axios.get('/profile').then(({data}) =>{
