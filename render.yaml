@@ -1,0 +1,5 @@
+services:
+  - name: fowOrd Booking Site
+    type: web
+    buildCommand: vite build
+    publishDir: dist
