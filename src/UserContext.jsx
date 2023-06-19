@@ -13,14 +13,10 @@ export function UserContextProvider({children}) {
 
      useEffect(() =>  {
         if(!user) {
-            axios.get('/profile', {
-                headers: {
-                  Authorization: `Bearer ${token}` 
-                }
-              }).then(({data}) =>{
+            axios.get('/profile').then(({data}) =>{
                 setUser(data);
                 setReady(true);
-                // console.log(data)
+                console.log(data)
             })
         }
      }, []);
