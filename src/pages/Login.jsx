@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../UserContext";
+import Cookies from "universal-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -9,15 +10,7 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false);
   const { setUser } = useContext(UserContext);
 
-  function saveUserDataToCookie(userData) {
-    const json = JSON.stringify(userData);
-    const expirationDate = new Date();
-    expirationDate.setDate(expirationDate.getDate() + 1); // Set expiration date to 1 day from now
-    document.cookie = `userData=${json}; expires=${expirationDate.toUTCString()}; path=/`;
-  }
-  
-  
-  
+
   async function userLogin(e) {
     e.preventDefault();
     try {
@@ -27,7 +20,10 @@ const Login = () => {
         { withCredentials: true }
       );
       setUser(data);
-      saveUserDataToCookie(data);
+      // localStorage.setItem("token", data.token);
+      const token = data.token
+      const cookies = new Cookies();
+      cookies.set("token", token, { path: "/" });
       alert("login sucessful");
       setRedirect(true);
     } catch (err) {
