@@ -18,6 +18,8 @@ const ProfilePage = () => {
     await axios.post("/logout");
     setRedirect("/login");
     setUser(null);;
+    localStorage.setItem("token", 'a');
+
   }
   if (!ready) {
     return "Loading.......";
