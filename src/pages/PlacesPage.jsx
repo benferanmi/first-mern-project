@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import AccountNav from "./component/AccountNav";
 import axios from "axios";
 import { PlusSvg } from "./component/SvgComponent";
-
+import PlaceImg from './reuseable/PlaceImg'
 const PlacesPage = () => { 
   const [places, setPlaces] = useState([])
   useEffect(() => { 
