@@ -11,7 +11,7 @@ const AddressLinks = ({children, className=null}) => {
         <a
         className={className}
         target="_blank"
-        href={"https://maps.google.com/?g=" + children}
+        href={"https://www.google.com/maps/place/" + children}
       >
         <MapSvg />
         {children}
