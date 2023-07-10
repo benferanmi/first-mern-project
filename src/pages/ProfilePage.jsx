@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const [redirect, setRedirect ] = useState(null);
   let { subpage } = useParams();
 
-  useEffect(() =>  {
+
     if(!user2) {
         axios.get('/profile').then(({data}) =>{
             setUser2(data);
@@ -20,7 +20,6 @@ const ProfilePage = () => {
             console.log(data)
         })
     }
- }, []);
 
   if (subpage === undefined) {
     subpage = "profile";
