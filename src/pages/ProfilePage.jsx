@@ -36,13 +36,17 @@ const ProfilePage = () => {
   if (!ready2) {
     return "Loading.......";
   }
-  if (ready2 && !user2 && !redirect) {
+  // if (ready2 && !user2 && !redirect) {
+  //   return <Navigate to={"/login"} />;
+  // }
+
+  if (ready2 && !user2) {
     return <Navigate to={"/login"} />;
   }
 
-  if (redirect) {
-    return <Navigate to={redirect} />;
-  }
+  // if (redirect) {
+  //   return <Navigate to={redirect} />;
+  // }
 
   console.log(user2)
   return (
