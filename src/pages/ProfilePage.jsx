@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import axios from "axios";
@@ -7,8 +7,20 @@ import AccountNav from "./component/AccountNav";
 
 const ProfilePage = () => {
   const { ready, user, setUser } = useContext(UserContext);
+  const [user2, setUser2 ] = useState(null)
+  const [ready2, setReady2] = useState(false)
   const [redirect, setRedirect ] = useState(null);
   let { subpage } = useParams();
+
+  useEffect(() =>  {
+    if(!user2) {
+        axios.get('/profile').then(({data}) =>{
+            setUser2(data);
+            setReady2(true);
+            console.log(data)
+        })
+    }
+ }, []);
 
   if (subpage === undefined) {
     subpage = "profile";
@@ -21,22 +33,24 @@ const ProfilePage = () => {
     localStorage.setItem("token", 'a');
 
   }
-  if (!ready) {
+  if (!ready2) {
     return "Loading.......";
   }
-  if (ready && !user && !redirect) {
+  if (ready2 && !user2 && !redirect) {
     return <Navigate to={"/login"} />;
   }
 
   if (redirect) {
     return <Navigate to={redirect} />;
   }
+
+  console.log(user2)
   return (
     <div>
       <AccountNav />
       {subpage === "profile" && (
         <div className="text-center max-w-lg mx-auto">
-          Logged in as {user.name} and {user.email}
+          Logged in as {user2.name} and {user2.email}
           <button onClick={logout} className="primary max-w-sm mt-2">
             Logout
           </button>
