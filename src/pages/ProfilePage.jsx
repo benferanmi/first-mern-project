@@ -30,28 +30,24 @@ const ProfilePage = () => {
     localStorage.setItem("token", 'a');
 
   }
-  if (!ready2) {
+  if (!ready) {
     return "Loading.......";
   }
-  // if (ready2 && !user2 && !redirect) {
-  //   return <Navigate to={"/login"} />;
-  // }
 
-  if (ready2 && !user2) {
+  if (ready && !user) {
     return <Navigate to={"/login"} />;
   }
 
-  // if (redirect) {
-  //   return <Navigate to={redirect} />;
-  // }
+  if (redirect) {
+    return <Navigate to={redirect} />;
+  }
 
-  console.log(user2)
   return (
     <div>
       <AccountNav />
       {subpage === "profile" && (
         <div className="text-center max-w-lg mx-auto">
-          Logged in as {user2.name} and {user2.email}
+          Logged in as {user.name} and {user.email}
           <button onClick={logout} className="primary max-w-sm mt-2">
             Logout
           </button>
