@@ -1,45 +1,11 @@
 {
-  "version": 2,
   "routes": [
     {
-      "src": "/api/profile",
+      "src": "/api/.*",
+      "dest": "http://localhost:8080/profile:splat",
       "headers": {
-        "Access-Control-Allow-Origin": "https://first-mern-project-two.vercel.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      },
-      "dest": "http://localhost:4000/profile"
-    },
-    {
-      "src": "/api/bookings",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://first-mern-project-two.vercel.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      },
-      "dest": "http://localhost:4000/bookings"
-    },
-    {
-      "src": "/api/user-places",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://first-mern-project-two.vercel.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      },
-      "dest": "http://localhost:4000/user-places"
-    },
-    {
-      "src": "/api/places",
-      "headers": {
-        "Access-Control-Allow-Origin": "https://first-mern-project-two.vercel.app",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
-        "Access-Control-Allow-Headers": "Content-Type, Authorization",
-        "Access-Control-Allow-Credentials": "true"
-      },
-      "dest": "http://localhost:4000/places"
+        "Authorization": "mytoken"
+      }
     }
   ]
 }
