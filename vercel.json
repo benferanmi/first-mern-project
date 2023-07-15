@@ -2,7 +2,7 @@
   "routes": [
     {
       "src": "/api/.*",
-      "dest": "http://localhost:8080/profile:splat",
+      "dest": "http://localhost:4080/profile:splat",
       "headers": {
         "Authorization": "mytoken"
       }
