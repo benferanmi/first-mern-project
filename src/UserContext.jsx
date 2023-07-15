@@ -6,7 +6,6 @@ export const UserContext = createContext({});
 export function UserContextProvider({children}) {
     const [user,setUser] = useState(null);
     const [ready, setReady] = useState(false)
-    // console.log(user)
 
     const token = localStorage.getItem("token");
     console.log(token)
@@ -19,7 +18,7 @@ export function UserContextProvider({children}) {
                 console.log(data)
             })
         }
-     }, []);
+     }, [user]);
 
     return (
         <UserContext.Provider value={{user,setUser, ready}}>

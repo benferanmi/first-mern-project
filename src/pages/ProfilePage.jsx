@@ -7,16 +7,14 @@ import AccountNav from "./component/AccountNav";
 
 const ProfilePage = () => {
   const { ready, user, setUser } = useContext(UserContext);
-  const [user2, setUser2 ] = useState(null)
-  const [ready2, setReady2] = useState(false)
   const [redirect, setRedirect ] = useState(null);
   let { subpage } = useParams();
 
 
-    if(!user2) {
+    if(!user) {
         axios.get('/profile').then(({data}) =>{
-            setUser2(data);
-            setReady2(true);
+            setUser(data);
+            setReady(true);
             console.log(data)
         })
     }
