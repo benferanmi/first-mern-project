@@ -10,7 +10,6 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false);
   const { setUser } = useContext(UserContext);
 
-
   async function userLogin(e) {
     e.preventDefault();
     try {
@@ -21,7 +20,7 @@ const Login = () => {
       );
       setUser(data);
       // localStorage.setItem("token", data.token);
-      const token = data.token
+      const token = data.token;
       const cookies = new Cookies();
       cookies.set("token", token, { path: "/" });
       alert("login sucessful");

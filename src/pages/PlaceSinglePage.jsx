@@ -2,19 +2,32 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import BookingWidget from "./BookingWidget.jsx";
-import PlaceGallery from './reuseable/PlaceGallery.jsx';
-import AddressLinks from './reuseable/AddressLinks.jsx';
-
+import PlaceGallery from "./reuseable/PlaceGallery.jsx";
+import AddressLinks from "./reuseable/AddressLinks.jsx";
+import GetTokenFormCookie from "./reuseable/Token.jsx";
 
 const PlaceSinglePage = () => {
   const { id } = useParams();
   const [place, setPlace] = useState(null);
+  const { token } = GetTokenFormCookie();
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get(`/places/${id}`).then((response) => {
+    if (token) {
+      const api = axios.create({
+        baseURL: `http://localhost:4000/places/${id}`,
+      });
+
+      api.interceptors.request.use((config) => {
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      });
+    }
+    axios.get("/").then((response) => {
       setPlace(response.data);
     });
   }, []);
@@ -22,11 +35,10 @@ const PlaceSinglePage = () => {
 
   if (!place) return "";
 
- 
   return (
     <div className="mt-4 bg-gray-100 -mx-8 px-8 pt-8">
       <h1 className="text-2xl">{place.title}</h1>
-     <AddressLinks> {place.address}</AddressLinks>
+      <AddressLinks> {place.address}</AddressLinks>
       <div className="relative">
         <PlaceGallery place={place} />
 
@@ -46,14 +58,13 @@ const PlaceSinglePage = () => {
         </div>
       </div>
       <div className="bg-white mx-8 px-8 py-8 border-t">
-      <div className="">
-        <h2 className="font-semibold text-2xl">Extra Information </h2>
+        <div className="">
+          <h2 className="font-semibold text-2xl">Extra Information </h2>
+        </div>
+        <div className="text-sm text-gray-700 leading-5 mb-4 mt-2">
+          {place.extraInfo}
+        </div>
       </div>
-      <div className="text-sm text-gray-700 leading-5 mb-4 mt-2">
-        {place.extraInfo}
-      </div>
-      </div>
-     
     </div>
   );
 };

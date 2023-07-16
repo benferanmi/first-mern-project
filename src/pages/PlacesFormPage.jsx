@@ -4,7 +4,7 @@ import axios from "axios";
 import PhotoUploader from "./component/PhotoUploader";
 import AccountNav from "./component/AccountNav";
 import { Navigate, useParams } from "react-router-dom";
-import GetTokenFormCookie from './reuseable/Token.jsx'
+import GetTokenFormCookie from "./reuseable/Token.jsx";
 
 const PlacesFormPage = () => {
   const { id } = useParams();
@@ -18,29 +18,40 @@ const PlacesFormPage = () => {
   const [checkOut, setCheckOut] = useState("");
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState(false);
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState("");
 
-  const {token} = GetTokenFormCookie()
-
+  const { token } = GetTokenFormCookie();
 
   useEffect(() => {
     if (!id) {
       return;
     }
-    axios.get("/places/" + id).then((response) => {
-      const { data } = response;
-      setTitle(data.title);
-      setAddress(data.address);
-      setDescription(data.description);
-      setAddedPhotos(data.photos);
-      setPerks(data.perks);
-      setExtraInfo(data.extraInfo);
-      setCheckIn(data.checkIn);
-      setCheckOut(data.checkOut);
-      setMaxGuests(data.maxGuests);
-      setPrice(data.price);
-    });
-  }, [id]);
+    if (token) {
+      const api = axios.create({
+        baseURL: "http://localhost:4000",
+      });
+
+      api.interceptors.request.use((config) => {
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      });
+      api.get("/places/" + id).then((response) => {
+        const { data } = response;
+        setTitle(data.title);
+        setAddress(data.address);
+        setDescription(data.description);
+        setAddedPhotos(data.photos);
+        setPerks(data.perks);
+        setExtraInfo(data.extraInfo);
+        setCheckIn(data.checkIn);
+        setCheckOut(data.checkOut);
+        setMaxGuests(data.maxGuests);
+        setPrice(data.price);
+      });
+    }
+  }, [id, token]);
   function inputHeader(text) {
     return <h2 className="text-2xl mt-4">{text}</h2>;
   }
@@ -74,9 +85,9 @@ const PlacesFormPage = () => {
     };
     if (token) {
       const api = axios.create({
-        baseURL: 'http://localhost:4000/places',
+        baseURL: "http://localhost:4000/places",
       });
-  
+
       api.interceptors.request.use((config) => {
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;

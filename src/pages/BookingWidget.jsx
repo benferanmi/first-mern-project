@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
 import axios from "axios";
 import { Navigate } from "react-router-dom";
+import GetTokenFormCookie from './reuseable/Token.jsx'
 
 const BookingWidget = ({ place }) => {
   const [checkIn, setCheckIn] = useState("");
@@ -10,6 +11,8 @@ const BookingWidget = ({ place }) => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [redirect, setRedirect] = useState('');
+  const {token} = GetTokenFormCookie()
+
 
   let numberOfNights = 0;
   if (checkIn && checkOut) {
@@ -21,15 +24,28 @@ const BookingWidget = ({ place }) => {
 
   async function bookThisPlace() {
   
-   const response = await axios.post("/bookings", {
-    checkIn,
-    checkOut,
-    numberOfGuests,
-    name,
-    phone,
-    place: place._id,
-    price: numberOfNights * place.price,
-  });
+  if (token) {
+    const api = axios.create({
+      baseURL: 'http://localhost:4000/bookings',
+    });
+
+    api.interceptors.request.use((config) => {
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+      return config;
+    });
+
+    const response = await api.post('/', {
+      checkIn,
+      checkOut,
+      numberOfGuests,
+      name,
+      phone,
+      place: place._id,
+      price: numberOfNights * place.price,
+    });
+  }
     const bookingId = response.data._id
     setRedirect(`/account/bookings/${bookingId}`)
   }

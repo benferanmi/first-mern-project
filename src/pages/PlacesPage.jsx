@@ -6,7 +6,6 @@ import { PlusSvg } from "./component/SvgComponent";
 import PlaceImg from "./reuseable/PlaceImg";
 import GetTokenFormCookie from "./reuseable/Token.jsx";
 
-
 const PlacesPage = () => {
   const [places, setPlaces] = useState([]);
   const { token } = GetTokenFormCookie();
