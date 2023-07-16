@@ -7,7 +7,6 @@ export const UserContext = createContext({});
 export function UserContextProvider({children}) {
     const [user,setUser] = useState(null);
     const [ready, setReady] = useState(false)
-    // const [token, setToken] = useState(null)
 
     const {token} = GetTokenFormCookie()
     

@@ -4,6 +4,7 @@ import axios from "axios";
 import PhotoUploader from "./component/PhotoUploader";
 import AccountNav from "./component/AccountNav";
 import { Navigate, useParams } from "react-router-dom";
+import GetTokenFormCookie from './reuseable/Token.jsx'
 
 const PlacesFormPage = () => {
   const { id } = useParams();
@@ -18,6 +19,9 @@ const PlacesFormPage = () => {
   const [maxGuests, setMaxGuests] = useState(1);
   const [redirect, setRedirect] = useState(false);
   const [price, setPrice] = useState('');
+
+  const {token} = GetTokenFormCookie()
+
 
   useEffect(() => {
     if (!id) {
@@ -68,17 +72,29 @@ const PlacesFormPage = () => {
       maxGuests,
       price,
     };
-    if (id) {
-      //updating existing place
-      await axios.put("/places", {
-        id,
-        ...placeData,
+    if (token) {
+      const api = axios.create({
+        baseURL: 'http://localhost:4000/places',
       });
-      setRedirect(true);
-    } else {
-      //adding new place
-      await axios.post("/places", placeData);
-      setRedirect(true);
+  
+      api.interceptors.request.use((config) => {
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      });
+      if (id) {
+        //updating existing place
+        await api.put("/", {
+          id,
+          ...placeData,
+        });
+        setRedirect(true);
+      } else {
+        //adding new place
+        await api.post("/", placeData);
+        setRedirect(true);
+      }
     }
   }
 
