@@ -4,14 +4,19 @@ import AccountNav from "./component/AccountNav";
 import axios from "axios";
 import { PlusSvg } from "./component/SvgComponent";
 import PlaceImg from './reuseable/PlaceImg'
+
 const PlacesPage = () => { 
   const [places, setPlaces] = useState([])
+  
+  const {token} = GetTokenFormCookie()
+
   useEffect(() => { 
     axios.get('/user-places').then(({data}) => {
       setPlaces(data)
     });
   }, []);
   console.log(places)
+
   return (
     <div>
       <AccountNav />

@@ -1,35 +1,16 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import GetTokenFormCookie from './pages/reuseable/Token.jsx'
 
 export const UserContext = createContext({});
 
 export function UserContextProvider({children}) {
     const [user,setUser] = useState(null);
     const [ready, setReady] = useState(false)
-    const [token, setToken] = useState(null)
+    // const [token, setToken] = useState(null)
 
-    const getTokenFromCookie = () => {
-        const cookies = document.cookie.split(';');
-      
-        for (let i = 0; i < cookies.length; i++) {
-          const cookie = cookies[i].trim();
-      
-          // Check if the cookie starts with "token="
-          if (cookie.startsWith('token=')) {
-            const token = cookie.split('=')[1];
-            return token;
-          }
-        }
-      
-        return null; // Token not found in cookies
-      };
-
-      useEffect(() => {
-        const recoveredToken = getTokenFromCookie();
-        setToken(recoveredToken);
-        console.log(recoveredToken);
-      }, []);
-      
+    const {token} = GetTokenFormCookie()
+    
       useEffect(() => {
         if (token && !user) {
             const api = axios.create({
