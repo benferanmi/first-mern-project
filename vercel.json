@@ -6,6 +6,13 @@
       "headers": {
         "Authorization": "mytoken"
       }
+    },
+    {
+      "src": "/user-places/.*",
+      "dest": "http://localhost:4000/user-places",
+      "headers": {
+        "Authorization": "mytoken"
+      }
     }
   ]
 }
