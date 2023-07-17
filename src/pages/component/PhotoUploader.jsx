@@ -6,21 +6,41 @@ import {
   SolidStarSvg,
   UploadSvg,
 } from "./SvgComponent";
+import GetTokenFormCookie from '../reuseable/Token.jsx'
+
 
 const PhotoUploader = ({ addedPhotos, onChange }) => {
   const [photoLink, setPhotoLink] = useState("");
+  const {token} = GetTokenFormCookie()
 
-  async function addPhotoByLink(e) {
-    e.preventDefault();
-    const { data: filename } = await axios.post("/upload-by-link", {
-      link: photoLink,
-    });
-    onChange((prev) => {
-      return [...prev, filename];
-    });
-    setPhotoLink("");
-  }
+  
 
+    async function addPhotoByLink(e) {
+      e.preventDefault();
+      if (token) {
+
+        const api = axios.create({
+          baseURL: 'http://localhost:4000/upload-by-link',
+        });
+    
+        api.interceptors.request.use((config) => {
+          if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+          }
+          return config;
+        });
+
+        const { data: filename } = await api.post("/", {
+          link: photoLink,
+        });
+        onChange((prev) => {
+          return [...prev, filename];
+        });
+        setPhotoLink("");
+      }
+      
+    }
+  
   function uploadPhotos(e) {
     const files = e.target.files;
     const data = new FormData();
